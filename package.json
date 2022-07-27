@@ -1,9 +1,8 @@
 {
-  "name": "zoom-api",
   "version": "0.1.0",
   "license": "MIT",
-  "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "files": [
     "dist",
     "src"
@@ -16,20 +15,38 @@
     "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint",
-    "prepare": "tsdx build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Avila-Tek/zoom-api.git"
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
   },
   "husky": {
     "hooks": {
       "pre-commit": "tsdx lint"
     }
   },
-  "author": "Manuel Mendoza",
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "avilatek-zoom",
+  "author": "Manuel Mendoza <manuel@avilatek.dev>, Jose Quevedo <jose@avilatek.com>",
+  "module": "dist/avilatek-zoom-red.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/avilatek-zoom-red.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/avilatek-zoom-red.esm.js",
+      "limit": "10 KB"
+    }
+  ],
   "devDependencies": {
+    "@size-limit/preset-small-lib": "^7.0.8",
     "husky": "^8.0.1",
+    "size-limit": "^7.0.8",
     "tsdx": "^0.14.1",
     "tslib": "^2.4.0",
     "typescript": "^3.9.10"
