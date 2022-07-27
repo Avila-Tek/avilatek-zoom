@@ -1,0 +1,40 @@
+{
+  "name": "zoom-api",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "",
+  "main": "index.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Avila-Tek/zoom-api.git"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "author": "Manuel Mendoza",
+  "devDependencies": {
+    "husky": "^8.0.1",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.0",
+    "typescript": "^3.9.10"
+  },
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
+}
