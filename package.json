@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.1.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -19,6 +19,7 @@
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
+  "peerDependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "tsdx lint"
@@ -30,37 +31,31 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "avilatek-zoom",
-  "author": "Manuel Mendoza <manuel@avilatek.dev>, Jose Quevedo <jose@avilatek.com>",
-  "module": "dist/avilatek-zoom-red.esm.js",
+  "name": "avilatek-red-zoom",
+  "author": "Jose Roberto Quevedo Gabizon <jose@avilatek.com>",
+  "keywords": [
+    "zoom",
+    "red-zoom",
+    "shipping",
+    "avila-tek",
+    "avilatek",
+    "avila tek"
+  ],
+  "module": "dist/avilatek-red-zoom.esm.js",
   "size-limit": [
     {
-      "path": "dist/avilatek-zoom-red.cjs.production.min.js",
+      "path": "dist/avilatek-red-zoom.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/avilatek-zoom-red.esm.js",
+      "path": "dist/avilatek-red-zoom.esm.js",
       "limit": "10 KB"
     }
   ],
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^7.0.8",
-    "@typescript-eslint/eslint-plugin": "^5.31.0",
-    "@typescript-eslint/parser": "^5.31.0",
-    "eslint": "^8.20.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-avilatek": "^1.13.0",
-    "eslint-config-avilatek-typescript": "^1.13.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-html": "^7.1.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.30.1",
-    "eslint-plugin-react-hooks": "^4.6.0",
+    "@size-limit/preset-small-lib": "^8.0.1",
     "husky": "^8.0.1",
-    "prettier": "^2.7.1",
-    "size-limit": "^7.0.8",
+    "size-limit": "^8.0.1",
     "tsdx": "^0.14.1",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4"
