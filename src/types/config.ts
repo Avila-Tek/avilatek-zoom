@@ -23,7 +23,7 @@ export interface GuiaElectronicaConfig {
 
 export type ZoomConfig =
   | {
-      env: 'production' | 'development';
+      env: 'development';
     }
   | Config;
 

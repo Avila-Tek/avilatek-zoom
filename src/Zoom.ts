@@ -23,14 +23,13 @@ export class Zoom {
         settings.guiaElectronicaUser = '1';
         settings.guiaElectronicaPassword = '456789';
         settings.guiaElectronicaKey = 'RH0sVTL9za7O6gutqI43';
-      } else {
-        // TODO: Add prod endpoints
-        settings.canguroAzulEndpoint = '';
-        settings.guiaElectronicaEndpoint = '';
       }
     } else {
       settings.canguroAzulEndpoint = config.canguroAzulEndpoint;
       settings.guiaElectronicaEndpoint = config.guiaElectronicaEndpoint;
+      settings.guiaElectronicaUser = config.guiaElectronicaUser;
+      settings.guiaElectronicaPassword = config.guiaElectronicaPassword;
+      settings.guiaElectronicaKey = config.guiaElectronicaKey;
     }
     this.canguroAzul = new CanguroAzul({
       endpoint: settings.canguroAzulEndpoint,

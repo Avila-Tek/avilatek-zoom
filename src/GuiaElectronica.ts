@@ -116,63 +116,63 @@ export class GuiaElectronica {
       certificado: cert,
       //! servicio
       codservicio: String(params.serviceCode),
-      consignacion: encodeURIComponent(params.consignment ? 1 : 0),
+      consignacion: String(params.consignment ? 1 : 0),
       //! remitente
-      remitente: encodeURIComponent(params.sender.name),
-      contacto_remitente: encodeURIComponent(params.sender.contact),
+      remitente: String(params.sender.name),
+      contacto_remitente: String(params.sender.contact),
       tiporifcirem: `${params.sender.dniType}-`,
       cirifrem: params.sender.dni,
-      codciudadrem: encodeURIComponent(params.sender.cityCode),
-      codmunicipiorem: encodeURIComponent(params.sender.municipalityCode),
-      codparroquiarem: encodeURIComponent(params.sender.parishCode),
-      zona_postal_remitente: encodeURIComponent(params.sender.zipCode),
-      telefono_remitente: encodeURIComponent(params.sender.phone),
-      codcelurem: encodeURIComponent(params.sender.cellPhoneCode),
-      celularrem: encodeURIComponent(params.sender.cellPhoneNumber),
-      direccion_remitente: encodeURIComponent(params.sender.address),
-      inmueble_remitente: encodeURIComponent(params.sender.property),
+      codciudadrem: String(params.sender.cityCode),
+      codmunicipiorem: String(params.sender.municipalityCode),
+      codparroquiarem: String(params.sender.parishCode),
+      zona_postal_remitente: String(params.sender.zipCode),
+      telefono_remitente: String(params.sender.phone),
+      codcelurem: String(params.sender.cellPhoneCode),
+      celularrem: String(params.sender.cellPhoneNumber),
+      direccion_remitente: String(params.sender.address),
+      inmueble_remitente: String(params.sender.property),
       //! destino
       retira_oficina: String(params.withdrawInOffice ? '1' : '0'),
-      codciudaddes: encodeURIComponent(params.cityCode),
-      codmunicipiodes: encodeURIComponent(params.municipalityCode),
-      codparroquiades: encodeURIComponent(params.parishCode),
-      zona_postal_destino: encodeURIComponent(params.zipCode),
+      codciudaddes: String(params.cityCode),
+      codmunicipiodes: String(params.municipalityCode),
+      codparroquiades: String(params.parishCode),
+      zona_postal_destino: String(params.zipCode),
       ...(params.withdrawInOffice
-        ? { codoficinades: encodeURIComponent(params.officeCode) }
+        ? { codoficinades: String(params.officeCode) }
         : {}),
       //! destinatario
-      destinatario: encodeURIComponent(params.recipient.name),
-      contacto_destino: encodeURIComponent(params.recipient.contact),
-      tiporifcidest: `${encodeURIComponent(params.recipient.dniType)}-`,
-      cirif_destinatario: encodeURIComponent(params.recipient.dni),
-      codceludest: encodeURIComponent(params.recipient.cellPhoneCode),
-      celular: encodeURIComponent(params.recipient.cellPhoneNumber),
-      telefono_destino: encodeURIComponent(params.recipient.phone),
-      direccion_destino: encodeURIComponent(params.recipient.address),
-      inmueble_destino: encodeURIComponent(params.recipient.property),
+      destinatario: String(params.recipient.name),
+      contacto_destino: String(params.recipient.contact),
+      tiporifcidest: `${String(params.recipient.dniType)}-`,
+      cirif_destinatario: String(params.recipient.dni),
+      codceludest: String(params.recipient.cellPhoneCode),
+      celular: String(params.recipient.cellPhoneNumber),
+      telefono_destino: String(params.recipient.phone),
+      direccion_destino: String(params.recipient.address),
+      inmueble_destino: String(params.recipient.property),
       //! detalles
-      descripcion_contenido: encodeURIComponent(params.content),
-      referencia: encodeURIComponent(params.refCode),
-      numero_piezas: encodeURIComponent(params.pieces),
-      peso_bruto: encodeURIComponent(params.weight),
+      descripcion_contenido: String(params.content),
+      referencia: String(params.refCode),
+      numero_piezas: String(params.pieces),
+      peso_bruto: String(params.weight),
       tipo_envio: params.type === 'merchandise' ? 'M' : 'D',
       ...(params.type === 'merchandise'
-        ? { valor_declarado: encodeURIComponent(params.declaredValue) }
+        ? { valor_declarado: String(params.declaredValue) }
         : {}),
       ...(params.type === 'merchandise'
         ? { seguro: params.insurance ? '1' : '0' }
         : {}),
       ...(params.type === 'merchandise'
-        ? { valor_mercancia: encodeURIComponent(0) } // FIXME
+        ? { valor_mercancia: String(0) } // FIXME
         : {}),
       ...(params.modeChargeDestiny
-        ? { modalidad_cod: encodeURIComponent(params.modeChargeDestiny) }
+        ? { modalidad_cod: String(params.modeChargeDestiny) }
         : {}),
       ...(params.locker
-        ? { codigo_casillero: encodeURIComponent(params.locker.code) }
+        ? { codigo_casillero: String(params.locker.code) }
         : {}),
       ...(params.locker
-        ? { siglas_casillero: encodeURIComponent(params.locker.acronym) }
+        ? { siglas_casillero: String(params.locker.acronym) }
         : {}),
     });
     const { data } = await this.axios.post<ZoomResponse<{ numguia: string }[]>>(
@@ -180,7 +180,7 @@ export class GuiaElectronica {
     );
     return buildApiResponse<{ numguia: string }[], string>(
       data,
-      values => values[0].numguia
+      values => values?.[0]?.numguia ?? null
     );
   }
 
@@ -193,9 +193,9 @@ export class GuiaElectronica {
   }) {
     // TODO: Validate
     const search = new URLSearchParams({
-      codcliente: encodeURIComponent(clientCode),
+      codcliente: String(clientCode),
       clave: this.password,
-      codguia: encodeURIComponent(trackingCode),
+      codguia: String(trackingCode),
     });
     const { data } = await this.axios.get<ZoomResponse<{ guiaPDF: string }>>(
       `/generarPdfGuiaEWs?${search.toString()}`
