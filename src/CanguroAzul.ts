@@ -504,7 +504,7 @@ export class CanguroAzul {
       modalidad_tarifa: String(modeOfFare),
       ciudad_remitente: String(params.senderCityCode),
       ciudad_destinatario: String(recipientCityCode),
-      oficina_retirar: String(officeCode),
+      ...(officeCode ? { oficina_retirar: String(officeCode) } : {}),
       cantidad_piezas: String(params.pieces),
       peso: String(params.weight),
       ...(merchandiseValue
