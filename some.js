@@ -2,32 +2,34 @@ const { Zoom } = require('./dist');
 const fs = require('fs');
 
 async function main() {
-  // const zoom = new Zoom({
-  //   canguroAzulEndpoint:
-  //     'https://webservices.zoom.red/baaszoom/public/canguroazul/',
-  //   guiaElectronicaEndpoint:
-  //     'https://webservices.zoom.red/baaszoom/public/guiaelectronica/',
-  //   guiaElectronicaKey: 'vVxBkWrLEnS90Tsh2jOF',
-  //   guiaElectronicaPassword: 'Zas123456',
-  //   guiaElectronicaUser: '449762',
-  // });
-
-  const zoom = new Zoom({ env: 'development' });
-
-
-  const guiaElectronica = zoom.guiaElectronica;
-  const canguroAzul = zoom.canguroAzul;
-
-  const data = await canguroAzul.calculateShippingRate({
-        type: 'charge-to-destination',
-        recipientCityCode: 19,
-        merchandiseValue: 200,
-        mode: 'delivery',
-        senderCityCode: 19,
-        pieces: 1,
-        weight: 1,
-        declaredValue: 200,
+  const zoom = new Zoom({
+    canguroAzulEndpoint:
+      'https://webservices.zoom.red/baaszoom/public/canguroazul/',
+    guiaElectronicaEndpoint:
+      'https://webservices.zoom.red/baaszoom/public/guiaelectronica/',
+    guiaElectronicaKey: 'vVxBkWrLEnS90Tsh2jOF',
+    guiaElectronicaPassword: 'Zas123456',
+    guiaElectronicaUser: '449762',
   });
+
+  console.log(zoom.guiaElectronica.token())
+
+  // const zoom = new Zoom({ env: 'development' });
+
+
+  // const guiaElectronica = zoom.guiaElectronica;
+  // const canguroAzul = zoom.canguroAzul;
+
+  // const data = await canguroAzul.calculateShippingRate({
+  //       type: 'charge-to-destination',
+  //       recipientCityCode: 19,
+  //       merchandiseValue: 200,
+  //       mode: 'delivery',
+  //       senderCityCode: 19,
+  //       pieces: 1,
+  //       weight: 1,
+  //       declaredValue: 200,
+  // });
 
   // console.log(data);
 
@@ -95,7 +97,7 @@ async function main() {
   //   recipientCityCode: 46,
   // }); ;
 
-  console.log(data);
+  // console.log(data);
 }
 
 main();

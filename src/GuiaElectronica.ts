@@ -31,31 +31,48 @@ export class GuiaElectronica {
       login: this.user,
       clave: this.password,
     });
-    const { data } = await this.axios.post<ZoomResponse<{ token: string }[]>>(
-      `/generarToken?${search.toString()}`
-    );
-    return buildApiResponse<{ token: string }[], string>(
-      data,
-      values => values[0].token
-    );
+    try {
+      const { data } = await this.axios.post<ZoomResponse<{ token: string }[]>>(
+        `/generarToken?${search.toString()}`
+      );
+      return buildApiResponse<{ token: string }[], string>(
+        data,
+        values => values?.[0]?.token ?? undefined
+      );
+    } catch (err) {
+      if (err instanceof Error) throw err;
+      throw new Error(String(err));
+    }
   }
 
   private async cert() {
-    const { response } = await this.token();
+    let response = '';
+    try {
+      response = (await this.token()).response;
+    } catch (err) {
+      throw new Error(
+        String('Could not get the cert. Error on token generation')
+      );
+    }
     const search = new URLSearchParams({
       login: this.user,
       password: this.password,
       token: response,
       frase_privada: this.privateKey,
     });
-    const { data } = await this.axios.post<
-      ZoomResponse<{ certificado: string }[]>
-    >(`/zoomCert?${search.toString()}`);
-    this.certificate = data.entidadRespuesta[0].certificado;
-    return buildApiResponse<{ certificado: string }[], string>(
-      data,
-      values => values[0].certificado
-    );
+    try {
+      const { data } = await this.axios.post<
+        ZoomResponse<{ certificado: string }[]>
+      >(`/zoomCert?${search.toString()}`);
+      this.certificate = data.entidadRespuesta[0].certificado;
+      return buildApiResponse<{ certificado: string }[], string>(
+        data,
+        values => values?.[0]?.certificado ?? undefined
+      );
+    } catch (err) {
+      if (err instanceof Error) throw err;
+      throw new Error(String(err));
+    }
   }
 
   public async modesChargeOnDestiny() {
@@ -108,7 +125,14 @@ export class GuiaElectronica {
 
   public async createShipment(params: TCreateShipment) {
     // TODO validate
-    const { response: cert } = await this.cert();
+    let cert = '';
+    try {
+      cert = (await this.cert()).response;
+    } catch (error) {
+      throw new Error(
+        String('Could not create the shipment. Error on cert generation')
+      );
+    }
     const search = new URLSearchParams({
       //! auth
       login: this.user,
